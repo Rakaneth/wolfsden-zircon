@@ -26,7 +26,8 @@ class StartView: BaseView() {
             .wrapWithBox()
             .build()
         startButton.onMouseReleased {
-            println("Start button clicked")
+            replaceWith(PlayView())
+            close()
         }
         screen.addComponent(header)
         screen.addComponent(startButton)
