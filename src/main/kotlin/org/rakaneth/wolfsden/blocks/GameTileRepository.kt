@@ -1,6 +1,7 @@
 package org.rakaneth.wolfsden.blocks
 
 import org.hexworks.zircon.api.Tiles
+import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.graphics.Symbols
 
@@ -25,5 +26,15 @@ object GameTileRepository {
         .withCharacter('#')
         .withForegroundColor(Swatch.WALL_FG)
         .withBackgroundColor(Swatch.WOOD_WALL_BG)
+        .buildCharacterTile()
+    val STAIRS_DOWN: CharacterTile = Tiles.newBuilder()
+        .withCharacter('>')
+        .withForegroundColor(Swatch.STAIRS_DOWN_FG)
+        .withBackgroundColor(TileColor.transparent())
+        .buildCharacterTile()
+    val STAIRS_UP: CharacterTile = Tiles.newBuilder()
+        .withCharacter('<')
+        .withForegroundColor(Swatch.STAIRS_UP_FG)
+        .withBackgroundColor(TileColor.transparent())
         .buildCharacterTile()
 }

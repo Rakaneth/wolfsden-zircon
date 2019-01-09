@@ -4,6 +4,8 @@ import org.hexworks.zircon.api.AppConfigs
 import org.hexworks.zircon.api.CP437TilesetResources
 import org.hexworks.zircon.api.ColorThemes
 import org.hexworks.zircon.api.Sizes
+import org.hexworks.zircon.api.data.impl.Size3D
+import squidpony.squidmath.StatefulRNG
 
 object GameConfig {
     val TILESET = CP437TilesetResources.rogueYun16x16()
@@ -20,6 +22,9 @@ object GameConfig {
     const val INFO_H = 10
     const val STAT_W = 30
     const val STAT_H = 30
+    val WORLD_SIZE = Size3D.create(100, 100, 5)
+    val VIEWPORT = Size3D.create(MAP_W, MAP_H, 5)
+    val RNG = StatefulRNG(0xDEADBEEF)
     fun buildAppConfig() = AppConfigs.newConfig()
         .enableBetaFeatures()
         .withDefaultTileset(TILESET)

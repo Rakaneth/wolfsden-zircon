@@ -10,4 +10,6 @@ object Swatch {
 
     val FLOOR_FG = TileColors.create(255, 255, 255)
     val WALL_FG = FLOOR_FG
+    val STAIRS_DOWN_FG = FLOOR_FG
+    val STAIRS_UP_FG = FLOOR_FG
 }
