@@ -14,6 +14,7 @@ import org.hexworks.zircon.internal.Zircon
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
 import org.rakaneth.wolfsden.events.GameLogEvent
+import org.rakaneth.wolfsden.extensions.logGameEvent
 import org.rakaneth.wolfsden.world.Game
 
 class PlayView(private val game: Game = Game.create()): BaseView() {
@@ -68,15 +69,7 @@ class PlayView(private val game: Game = Game.create()): BaseView() {
         screen.addComponent(gameComponent)
 
         screen.onKeyStroke {
-            when (it.inputType()) {
-                InputType.Numpad8 -> game.world.scrollOneBackward()
-                InputType.Numpad6 -> game.world.scrollOneRight()
-                InputType.Numpad4 -> game.world.scrollOneLeft()
-                InputType.Numpad2 -> game.world.scrollOneForward()
-                InputType.Tab -> game.world.scrollOneDown()
-                InputType.Enter -> game.world.scrollOneUp()
-                else -> Zircon.eventBus.publish(GameLogEvent("Unknown key pressed: ${it.getCharacter()}"))
-            }
+
         }
     }
 }
