@@ -1,11 +1,16 @@
 package org.rakaneth.wolfsden.view
 
 import org.hexworks.zircon.api.Components
+import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.component.ComponentAlignment
+import org.hexworks.zircon.api.data.Tile
+import org.hexworks.zircon.api.game.ProjectionMode
 import org.hexworks.zircon.api.mvc.base.BaseView
 import org.rakaneth.wolfsden.GameConfig
+import org.rakaneth.wolfsden.blocks.GameBlock
+import org.rakaneth.wolfsden.world.Game
 
-class PlayView: BaseView() {
+class PlayView(private val game: Game = Game.create()): BaseView() {
     override val theme = GameConfig.THEME
     override fun onDock() {
         val statPanel = Components.panel()
@@ -39,5 +44,13 @@ class PlayView: BaseView() {
             .withAlignmentWithin(screen, ComponentAlignment.BOTTOM_LEFT)
             .build()
         screen.addComponent(msgPanel)
+
+        val gameComponent = GameComponents.newGameComponentBuilder<Tile, GameBlock>()
+            .withGameArea(game.world)
+            .withVisibleSize(game.world.visibleSize())
+            .withProjectionMode(ProjectionMode.TOP_DOWN)
+            .withAlignmentWithin(screen, ComponentAlignment.TOP_LEFT)
+            .build()
+        screen.addComponent(gameComponent)
     }
 }
