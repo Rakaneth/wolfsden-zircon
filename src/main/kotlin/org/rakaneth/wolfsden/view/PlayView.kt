@@ -1,13 +1,19 @@
 package org.rakaneth.wolfsden.view
 
+import org.hexworks.cobalt.events.api.subscribe
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
+import org.hexworks.zircon.api.Sizes
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.game.ProjectionMode
+import org.hexworks.zircon.api.input.InputType
+import org.hexworks.zircon.api.kotlin.onKeyStroke
 import org.hexworks.zircon.api.mvc.base.BaseView
+import org.hexworks.zircon.internal.Zircon
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
+import org.rakaneth.wolfsden.events.GameLogEvent
 import org.rakaneth.wolfsden.world.Game
 
 class PlayView(private val game: Game = Game.create()): BaseView() {
@@ -37,12 +43,20 @@ class PlayView(private val game: Game = Game.create()): BaseView() {
             .build()
         screen.addComponent(skillPanel)
 
-        val msgPanel = Components.logArea()
+        val msgPanel = Components.panel()
             .withTitle("Messages")
             .wrapWithBox()
             .withSize(GameConfig.MSG_W, GameConfig.MSG_H)
             .withAlignmentWithin(screen, ComponentAlignment.BOTTOM_LEFT)
-            .build()
+            .build().also {
+                val logArea = Components.logArea()
+                    .withSize(it.size - Sizes.create(2, 2))
+                    .build()
+                it.addComponent(logArea)
+                Zircon.eventBus.subscribe<GameLogEvent> { (text) ->
+                    logArea.addParagraph(text, false)
+                }
+            }
         screen.addComponent(msgPanel)
 
         val gameComponent = GameComponents.newGameComponentBuilder<Tile, GameBlock>()
@@ -52,5 +66,17 @@ class PlayView(private val game: Game = Game.create()): BaseView() {
             .withAlignmentWithin(screen, ComponentAlignment.TOP_LEFT)
             .build()
         screen.addComponent(gameComponent)
+
+        screen.onKeyStroke {
+            when (it.inputType()) {
+                InputType.Numpad8 -> game.world.scrollOneBackward()
+                InputType.Numpad6 -> game.world.scrollOneRight()
+                InputType.Numpad4 -> game.world.scrollOneLeft()
+                InputType.Numpad2 -> game.world.scrollOneForward()
+                InputType.Tab -> game.world.scrollOneDown()
+                InputType.Enter -> game.world.scrollOneUp()
+                else -> Zircon.eventBus.publish(GameLogEvent("Unknown key pressed: ${it.getCharacter()}"))
+            }
+        }
     }
 }

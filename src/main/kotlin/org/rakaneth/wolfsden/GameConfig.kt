@@ -23,7 +23,7 @@ object GameConfig {
     const val STAT_W = 30
     const val STAT_H = 30
     val WORLD_SIZE = Size3D.create(100, 100, 5)
-    val VIEWPORT = Size3D.create(MAP_W, MAP_H, 5)
+    val VIEWPORT = Size3D.create(MAP_W, MAP_H, 1)
     val RNG = StatefulRNG(0xDEADBEEF)
     fun buildAppConfig() = AppConfigs.newConfig()
         .enableBetaFeatures()

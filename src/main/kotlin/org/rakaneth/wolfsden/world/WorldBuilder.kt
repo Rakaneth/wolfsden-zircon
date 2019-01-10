@@ -14,13 +14,16 @@ class WorldBuilder (private val worldSize: Size3D){
     private val depth = worldSize.zLength
     private var blocks: MutableMap<Position3D, GameBlock> = mutableMapOf()
 
-    private fun createRaw(): Array<Array<CharArray>> {
+    private fun createRaw(caveCarvers: Int = 1, roundCarvers: Int = 0, boxCarvers: Int = 0): Array<Array<CharArray>> {
         val gen = SerpentDeepMapGenerator(width, height, depth, GameConfig.RNG)
+        gen.putCaveCarvers(caveCarvers)
+        gen.putRoundRoomCarvers(roundCarvers)
+        gen.putBoxRoomCarvers(boxCarvers)
         return gen.generate()
     }
 
     fun createCaveComplex(visibleSize: Size3D): World {
-        val raw = createRaw()
+        val raw = createRaw(caveCarvers=1, roundCarvers=2, boxCarvers=3)
         for ((z, m) in raw.withIndex()) {
             for ((x, c) in m.withIndex()) {
                 for ((y, r) in c.withIndex()) {
