@@ -6,9 +6,9 @@ Following [this](https://hexworks.org/posts/tutorials/) excellent tutorial and m
 my concept.
 
 # DONE
-* [ ] Moving @
+* [x] Moving @
 * [x] Screen (Zircon views are everything I want in life)
-* [ ] Command interface
-* [ ] Main Screen UI
+* [x] Command interface
+* [x] Main Screen UI
 * [ ] Data files
 * [ ] Entities
