@@ -6,6 +6,8 @@ import org.hexworks.cobalt.datatypes.extensions.orElseThrow
 import org.hexworks.zircon.api.data.Tile
 import org.rakaneth.wolfsden.attributes.EntityPosition
 import org.rakaneth.wolfsden.attributes.EntityTile
+import org.rakaneth.wolfsden.attributes.flags.BlockOccupier
+import org.rakaneth.wolfsden.attributes.flags.VisionBlocker
 
 inline fun <reified T: Attribute> AnyGameEntity.attribute(): T = attribute(T::class).orElseThrow {
     NoSuchElementException("Entity '$this' has no property with type '${T::class.simpleName}'.")
@@ -26,3 +28,9 @@ var AnyGameEntity.position
 
 val AnyGameEntity.tile: Tile
     get() = attribute<EntityTile>().tile
+
+val AnyGameEntity.occupiesBlock: Boolean
+    get() = hasAttribute<BlockOccupier>()
+
+val AnyGameEntity.blocksVision: Boolean
+    get() = hasAttribute<VisionBlocker>()

@@ -13,11 +13,12 @@ import org.hexworks.zircon.api.mvc.base.BaseView
 import org.hexworks.zircon.internal.Zircon
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
+import org.rakaneth.wolfsden.builders.GameBuilder
 import org.rakaneth.wolfsden.events.GameLogEvent
 import org.rakaneth.wolfsden.extensions.logGameEvent
 import org.rakaneth.wolfsden.world.Game
 
-class PlayView(private val game: Game = Game.create()): BaseView() {
+class PlayView(private val game: Game): BaseView() {
     override val theme = GameConfig.THEME
     override fun onDock() {
         val statPanel = Components.panel()
@@ -69,7 +70,7 @@ class PlayView(private val game: Game = Game.create()): BaseView() {
         screen.addComponent(gameComponent)
 
         screen.onKeyStroke {
-
+            game.world.update(screen, it, game)
         }
     }
 }

@@ -12,4 +12,7 @@ object Swatch {
     val WALL_FG = FLOOR_FG
     val STAIRS_DOWN_FG = FLOOR_FG
     val STAIRS_UP_FG = FLOOR_FG
+    val STAIRS_BG = TileColors.transparent()
+    val PLAYER_FG = FLOOR_FG
+    val PLAYER_BG = TileColors.transparent()
 }

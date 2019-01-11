@@ -6,6 +6,8 @@ import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.graphics.BoxType
 import org.hexworks.zircon.api.kotlin.onMouseReleased
 import org.hexworks.zircon.api.mvc.base.BaseView
+import org.rakaneth.wolfsden.GameConfig
+import org.rakaneth.wolfsden.builders.GameBuilder
 
 class StartView: BaseView() {
 
@@ -26,7 +28,8 @@ class StartView: BaseView() {
             .wrapWithBox()
             .build()
         startButton.onMouseReleased {
-            replaceWith(PlayView())
+            val game = GameBuilder(GameConfig.WORLD_SIZE).buildGame()
+            replaceWith(PlayView(game))
             close()
         }
         screen.addComponent(header)

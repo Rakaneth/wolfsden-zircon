@@ -1,10 +1,11 @@
-package org.rakaneth.wolfsden.world
+package org.rakaneth.wolfsden.builders
 
 import org.hexworks.zircon.api.data.impl.Position3D
 import org.hexworks.zircon.api.data.impl.Size3D
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
 import org.rakaneth.wolfsden.blocks.GameBlockFactory
+import org.rakaneth.wolfsden.world.World
 import squidpony.squidgrid.mapping.SerpentDeepMapGenerator
 
 
@@ -37,6 +38,6 @@ class WorldBuilder (private val worldSize: Size3D){
                 }
             }
         }
-        return World(blocks, visibleSize, worldSize)
+        return World(blocks, visibleSize, worldSize, raw)
     }
 }
