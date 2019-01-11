@@ -8,10 +8,10 @@ import org.hexworks.zircon.api.data.impl.Size3D
 import squidpony.squidmath.StatefulRNG
 
 object GameConfig {
-    val TILESET = CP437TilesetResources.rogueYun16x16()
+    private val TILESET = CP437TilesetResources.rogueYun16x16()
     val THEME = ColorThemes.zenburnVanilla()
-    const val WINDOW_WIDTH = 90
-    const val WINDOW_HEIGHT = 40
+    private const val WINDOW_WIDTH = 90
+    private const val WINDOW_HEIGHT = 40
     const val MAP_W = 60
     const val MAP_H = 30
     const val MSG_W = 30
@@ -24,7 +24,7 @@ object GameConfig {
     const val STAT_H = 30
     val WORLD_SIZE = Size3D.create(100, 100, 5)
     val VIEWPORT = Size3D.create(MAP_W, MAP_H, 1)
-    val RNG = StatefulRNG(0xDEADBEEF)
+    val RNG = StatefulRNG(0xDEADBEE)
     fun buildAppConfig() = AppConfigs.newConfig()
         .enableBetaFeatures()
         .withDefaultTileset(TILESET)

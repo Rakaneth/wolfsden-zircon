@@ -111,6 +111,10 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
         scrollRightBy(x)
     }
 
+    fun withBlockAt(pos: Position3D, fn: (GameBlock) -> Unit) {
+        fetchBlockAt(pos).map(fn)
+    }
+
 
 
 

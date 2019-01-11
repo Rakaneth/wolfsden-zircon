@@ -18,6 +18,7 @@ object EntityBuilder {
         behaviors(PlayerInputHandler)
         facets(
             CameraMover,
-            Movable)
+            Movable,
+            StairUser)
     }
 }

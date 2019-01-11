@@ -7,8 +7,10 @@ import org.hexworks.zircon.api.kotlin.whenKeyStroke
 import org.rakaneth.wolfsden.commands.CameraMoveDirection
 import org.rakaneth.wolfsden.commands.MoveCamera
 import org.rakaneth.wolfsden.commands.MoveTo
+import org.rakaneth.wolfsden.commands.UseStairs
 import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.extensions.position
+import org.rakaneth.wolfsden.extensions.whenCharacterIs
 import org.rakaneth.wolfsden.world.GameContext
 
 object PlayerInputHandler: BaseBehavior<GameContext>() {
@@ -35,6 +37,19 @@ object PlayerInputHandler: BaseBehavior<GameContext>() {
                     oldPos = curPos,
                     newPos = newPos,
                     cameraMoveDirection = it))
+            }
+            input.whenCharacterIs('>') {
+                player.executeCommand(UseStairs(
+                    context = context,
+                    source = player,
+                    position = newPos))
+
+            }
+            input.whenCharacterIs('<' ) {
+                player.executeCommand(UseStairs(
+                    context = context,
+                    source = player,
+                    position = curPos))
             }
         }
         return true

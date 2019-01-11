@@ -8,6 +8,7 @@ import org.rakaneth.wolfsden.attributes.EntityPosition
 import org.rakaneth.wolfsden.attributes.EntityTile
 import org.rakaneth.wolfsden.attributes.flags.BlockOccupier
 import org.rakaneth.wolfsden.attributes.flags.VisionBlocker
+import org.rakaneth.wolfsden.attributes.types.Player
 
 inline fun <reified T: Attribute> AnyGameEntity.attribute(): T = attribute(T::class).orElseThrow {
     NoSuchElementException("Entity '$this' has no property with type '${T::class.simpleName}'.")
@@ -18,6 +19,13 @@ inline fun <reified T: Attribute> AnyGameEntity.whenHasAttribute(crossinline fn:
     attribute(T::class).map(fn)
 }
 
+@Suppress("UNCHECKED_CAST")
+fun AnyGameEntity.whenIsPlayer(fn: (AnyGameEntity) -> Unit) {
+    if (this.isPlayer) {
+        fn(this as GameEntity<Player>)
+    }
+}
+
 var AnyGameEntity.position
     get() = attribute<EntityPosition>().position
     set(value) {
@@ -25,6 +33,9 @@ var AnyGameEntity.position
             it.position = value
         }
     }
+
+val AnyGameEntity.isPlayer
+    get() = this.type == Player
 
 val AnyGameEntity.tile: Tile
     get() = attribute<EntityTile>().tile

@@ -17,6 +17,12 @@ class GameBlock(private var defaultTile: Tile = GameTileRepository.STONE_FLOOR,
     val isWall: Boolean
         get() = defaultTile == GameTileRepository.STONE_WALL || defaultTile == GameTileRepository.WOOD_WALL
 
+    val hasDownStair: Boolean
+        get() = defaultTile == GameTileRepository.STAIRS_DOWN
+
+    val hasUpStair: Boolean
+        get() = defaultTile == GameTileRepository.STAIRS_UP
+
     val isOccupied: Boolean
         get() = currentEntities.any { it.occupiesBlock }
 
