@@ -15,4 +15,5 @@ object Swatch {
     val STAIRS_BG = TileColors.transparent()
     val PLAYER_FG = FLOOR_FG
     val PLAYER_BG = TileColors.transparent()
+    val PLAYER_LABEL_FG = TileColors.create(255,255,0)
 }

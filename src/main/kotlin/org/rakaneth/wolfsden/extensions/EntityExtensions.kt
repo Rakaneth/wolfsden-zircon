@@ -1,9 +1,11 @@
 package org.rakaneth.wolfsden.extensions
 
 import org.hexworks.amethyst.api.Attribute
+import org.hexworks.cobalt.databinding.api.property.Property
 import org.hexworks.cobalt.datatypes.extensions.map
 import org.hexworks.cobalt.datatypes.extensions.orElseThrow
 import org.hexworks.zircon.api.data.Tile
+import org.rakaneth.wolfsden.attributes.EntityID
 import org.rakaneth.wolfsden.attributes.EntityPosition
 import org.rakaneth.wolfsden.attributes.EntityTile
 import org.rakaneth.wolfsden.attributes.flags.BlockOccupier
@@ -45,3 +47,9 @@ val AnyGameEntity.occupiesBlock: Boolean
 
 val AnyGameEntity.blocksVision: Boolean
     get() = hasAttribute<VisionBlocker>()
+
+val AnyGameEntity.dispName: Property<String>
+    get() = attribute<EntityID>().nameProp
+
+val AnyGameEntity.desc: Property<String>
+    get() = attribute<EntityID>().descProp

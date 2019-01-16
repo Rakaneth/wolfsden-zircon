@@ -1,5 +1,6 @@
 package org.rakaneth.wolfsden.builders
 
+import org.hexworks.cobalt.databinding.api.property.Property
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.attributes.*
 import org.rakaneth.wolfsden.attributes.flags.BlockOccupier
@@ -14,7 +15,8 @@ object EntityBuilder {
     fun newPlayer() = newGameEntityOfType(Player) {
         attributes(BlockOccupier,
             EntityPosition(),
-            EntityTile(GameTileRepository.PLAYER))
+            EntityTile(GameTileRepository.PLAYER),
+            EntityID.create("Player", "The player"))
         behaviors(PlayerInputHandler)
         facets(
             CameraMover,

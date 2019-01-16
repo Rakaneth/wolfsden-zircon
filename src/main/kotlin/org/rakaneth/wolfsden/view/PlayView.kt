@@ -1,9 +1,11 @@
 package org.rakaneth.wolfsden.view
 
 import org.hexworks.cobalt.events.api.subscribe
+import org.hexworks.zircon.api.ComponentStyleSets
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.Sizes
+import org.hexworks.zircon.api.builder.graphics.StyleSetBuilder
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.game.ProjectionMode
@@ -15,6 +17,8 @@ import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
 import org.rakaneth.wolfsden.builders.GameBuilder
 import org.rakaneth.wolfsden.events.GameLogEvent
+import org.rakaneth.wolfsden.extensions.desc
+import org.rakaneth.wolfsden.extensions.dispName
 import org.rakaneth.wolfsden.extensions.logGameEvent
 import org.rakaneth.wolfsden.world.Game
 
@@ -26,7 +30,23 @@ class PlayView(private val game: Game): BaseView() {
             .withTitle("Stats")
             .wrapWithBox()
             .withAlignmentWithin(screen, ComponentAlignment.TOP_RIGHT)
-            .build()
+            .build().apply {
+                val nameLbl = Components.label()
+                    .withSize(this.width-2, 1)
+                    .withAlignmentWithin(this, ComponentAlignment.TOP_LEFT)
+                    .build().apply {
+                        textProperty.bind(game.player.dispName)
+                    }
+                val descLbl = Components.label()
+                    .withSize(this.width-2, 1)
+                    .withAlignmentWithin(this, ComponentAlignment.TOP_LEFT)
+                    .build().apply{
+                        textProperty.bind(game.player.desc)
+                        moveDownBy(1)
+                    }
+                addComponent(nameLbl)
+                addComponent(descLbl)
+            }
         screen.addComponent(statPanel)
 
         val infoPanel = Components.panel()
