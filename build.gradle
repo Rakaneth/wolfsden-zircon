@@ -25,6 +25,7 @@ dependencies {
     compile "org.hexworks.cobalt:cobalt.databinding-jvm:$cobalt_version"
     compile "org.hexworks.amethyst:amethyst.core-jvm:$amethyst_version"
     compile "com.github.SquidPony.SquidLib:squidlib-util:$squidlib_version"
+    compile "org.yaml:snakeyaml:$snakeyaml_version"
 
     testCompile "junit:junit$junit_version"
 }

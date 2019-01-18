@@ -20,11 +20,13 @@ import org.rakaneth.wolfsden.events.GameLogEvent
 import org.rakaneth.wolfsden.extensions.desc
 import org.rakaneth.wolfsden.extensions.dispName
 import org.rakaneth.wolfsden.extensions.logGameEvent
+import org.rakaneth.wolfsden.view.fragment.StatBlock
 import org.rakaneth.wolfsden.world.Game
 
 class PlayView(private val game: Game): BaseView() {
     override val theme = GameConfig.THEME
     override fun onDock() {
+        var counter = 0
         val statPanel = Components.panel()
             .withSize(GameConfig.STAT_W, GameConfig.STAT_H)
             .withTitle("Stats")
@@ -36,16 +38,23 @@ class PlayView(private val game: Game): BaseView() {
                     .withAlignmentWithin(this, ComponentAlignment.TOP_LEFT)
                     .build().apply {
                         textProperty.bind(game.player.dispName)
+                        counter += height
                     }
                 val descLbl = Components.label()
                     .withSize(this.width-2, 1)
                     .withAlignmentWithin(this, ComponentAlignment.TOP_LEFT)
                     .build().apply{
                         textProperty.bind(game.player.desc)
-                        moveDownBy(1)
+                        moveDownBy(counter)
+                        counter += height
                     }
+                val playerStats = StatBlock(game.player).apply {
+                    root.moveDownBy(counter)
+                    counter += height
+                }
                 addComponent(nameLbl)
                 addComponent(descLbl)
+                addFragment(playerStats)
             }
         screen.addComponent(statPanel)
 

@@ -5,11 +5,10 @@ import org.hexworks.cobalt.databinding.api.property.Property
 import org.hexworks.cobalt.datatypes.extensions.map
 import org.hexworks.cobalt.datatypes.extensions.orElseThrow
 import org.hexworks.zircon.api.data.Tile
-import org.rakaneth.wolfsden.attributes.EntityID
-import org.rakaneth.wolfsden.attributes.EntityPosition
-import org.rakaneth.wolfsden.attributes.EntityTile
+import org.rakaneth.wolfsden.attributes.*
 import org.rakaneth.wolfsden.attributes.flags.BlockOccupier
 import org.rakaneth.wolfsden.attributes.flags.VisionBlocker
+import org.rakaneth.wolfsden.attributes.types.Creature
 import org.rakaneth.wolfsden.attributes.types.Player
 
 inline fun <reified T: Attribute> AnyGameEntity.attribute(): T = attribute(T::class).orElseThrow {
@@ -53,3 +52,14 @@ val AnyGameEntity.dispName: Property<String>
 
 val AnyGameEntity.desc: Property<String>
     get() = attribute<EntityID>().descProp
+
+val AnyGameEntity.tags: MutableSet<String>
+    get() = attribute<TagList>().tags
+
+fun AnyGameEntity.hasTag(tag: String) = tags.contains(tag)
+
+fun AnyGameEntity.addTag(tag: String) = tags.add(tag)
+
+fun AnyGameEntity.removeTag(tag: String) = tags.remove(tag)
+
+

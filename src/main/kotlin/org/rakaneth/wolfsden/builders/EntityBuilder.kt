@@ -13,10 +13,12 @@ import org.rakaneth.wolfsden.systems.*
 object EntityBuilder {
     private val rng = GameConfig.RNG
     fun newPlayer() = newGameEntityOfType(Player) {
-        attributes(BlockOccupier,
+        attributes(
+            BlockOccupier,
             EntityPosition(),
             EntityTile(GameTileRepository.PLAYER),
-            EntityID.create("Player", "The player"))
+            EntityID.create("Player", "The player"),
+            CreatureStats.create())
         behaviors(PlayerInputHandler)
         facets(
             CameraMover,
