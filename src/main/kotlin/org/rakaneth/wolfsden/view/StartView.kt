@@ -9,7 +9,7 @@ import org.hexworks.zircon.api.mvc.base.BaseView
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.builders.GameBuilder
 
-class StartView: BaseView() {
+class StartView : BaseView() {
 
     override val theme = ColorThemes.arc()
     override fun onDock() {

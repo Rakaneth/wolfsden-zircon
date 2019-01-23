@@ -13,12 +13,12 @@ import org.rakaneth.wolfsden.extensions.position
 import org.rakaneth.wolfsden.extensions.whenCharacterIs
 import org.rakaneth.wolfsden.world.GameContext
 
-object PlayerInputHandler: BaseBehavior<GameContext>() {
+object PlayerInputHandler : BaseBehavior<GameContext>() {
     override fun update(entity: GameEntity<out EntityType>, context: GameContext): Boolean {
         val (world, screen, input, player) = context
         val curPos = player.position
         input.whenKeyStroke { ks ->
-            val (newPos, direction) =when (ks.inputType()) {
+            val (newPos, direction) = when (ks.inputType()) {
                 InputType.Numpad8, InputType.ArrowUp -> curPos.withRelativeY(-1) to CameraMoveDirection.N
                 InputType.Numpad9 -> curPos.withRelativeY(-1).withRelativeX(1) to CameraMoveDirection.NE
                 InputType.Numpad6, InputType.ArrowRight -> curPos.withRelativeX(1) to CameraMoveDirection.E
@@ -31,25 +31,34 @@ object PlayerInputHandler: BaseBehavior<GameContext>() {
             }
             direction?.let {
                 player.executeCommand(MoveTo(context, player, newPos))
-                player.executeCommand(MoveCamera(
-                    context = context,
-                    source = player,
-                    oldPos = curPos,
-                    newPos = newPos,
-                    cameraMoveDirection = it))
+                player.executeCommand(
+                    MoveCamera(
+                        context = context,
+                        source = player,
+                        oldPos = curPos,
+                        newPos = newPos,
+                        cameraMoveDirection = it
+                    )
+                )
             }
             input.whenCharacterIs('>') {
-                player.executeCommand(UseStairs(
-                    context = context,
-                    source = player,
-                    position = newPos))
+                player.executeCommand(
+                    UseStairs(
+                        context = context,
+                        source = player,
+                        position = newPos
+                    )
+                )
 
             }
-            input.whenCharacterIs('<' ) {
-                player.executeCommand(UseStairs(
-                    context = context,
-                    source = player,
-                    position = curPos))
+            input.whenCharacterIs('<') {
+                player.executeCommand(
+                    UseStairs(
+                        context = context,
+                        source = player,
+                        position = curPos
+                    )
+                )
             }
         }
         return true

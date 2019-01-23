@@ -18,6 +18,14 @@ repositories {
     maven{ url 'https://jitpack.io'}
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/datafiles"
+        }
+    }
+}
+
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.hexworks.zircon:zircon.core-jvm:$zircon_version"

@@ -7,13 +7,15 @@ import org.hexworks.zircon.internal.Zircon
 import org.rakaneth.wolfsden.events.GameLogEvent
 import org.rakaneth.wolfsden.world.GameContext
 
-fun <T: EntityType> newGameEntityOfType(type: T, builder: EntityBuilder<T, GameContext>.() -> Unit) =
+fun <T : EntityType> newGameEntityOfType(type: T, builder: EntityBuilder<T, GameContext>.() -> Unit) =
     newEntityOfType(type, builder)
 
 
-fun logGameEvent(text: String) { Zircon.eventBus.publish(GameLogEvent(text))}
+fun logGameEvent(text: String) {
+    Zircon.eventBus.publish(GameLogEvent(text))
+}
 
-fun <T: Comparable<T>> clamp(value: T, low: T, high: T): T {
+fun <T : Comparable<T>> clamp(value: T, low: T, high: T): T {
     return when {
         value.compareTo(low) == -1 -> low
         value.compareTo(high) == 1 -> high
@@ -21,4 +23,4 @@ fun <T: Comparable<T>> clamp(value: T, low: T, high: T): T {
     }
 }
 
-fun <T: Comparable<T>> between(value: T, low: T, high: T): Boolean = clamp(value, low, high) == value
+fun <T : Comparable<T>> between(value: T, low: T, high: T): Boolean = clamp(value, low, high) == value

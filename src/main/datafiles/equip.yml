@@ -114,7 +114,7 @@ hands: &naturalWeapon
     dmg: 1
   damageType: blunt
   equipType: natural
-  tags: 
+  tags:
     - weapon
     - natural
 claws:

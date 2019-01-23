@@ -8,9 +8,10 @@ import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.extensions.occupiesBlock
 import org.rakaneth.wolfsden.extensions.tile
 
-class GameBlock(private var defaultTile: Tile = GameTileRepository.STONE_FLOOR,
-                private val currentEntities: MutableList<GameEntity<EntityType>> = mutableListOf())
-    : BlockBase<Tile>() {
+class GameBlock(
+    private var defaultTile: Tile = GameTileRepository.STONE_FLOOR,
+    private val currentEntities: MutableList<GameEntity<EntityType>> = mutableListOf()
+) : BlockBase<Tile>() {
     val isFloor: Boolean
         get() = defaultTile == GameTileRepository.STONE_FLOOR || defaultTile == GameTileRepository.WOOD_FLOOR
 

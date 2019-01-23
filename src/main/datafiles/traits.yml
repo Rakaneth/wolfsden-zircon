@@ -42,7 +42,7 @@ whitespeaker:
   bonusStats:
     str: 5
     smt: -5
-  startEquip: 
+  startEquip:
     - whiteMark
   baseAttack: claws
 blackspeaker:
@@ -52,7 +52,7 @@ blackspeaker:
   bonusStats:
     sag: 5
     spd: -5
-  startEquip: 
+  startEquip:
     - blackMark
   baseAttack: claws
 redspeaker:

@@ -6,10 +6,12 @@ import org.hexworks.amethyst.api.Response
 import org.hexworks.amethyst.api.base.BaseFacet
 import org.hexworks.amethyst.api.entity.EntityType
 import org.rakaneth.wolfsden.commands.UseStairs
-import org.rakaneth.wolfsden.extensions.*
+import org.rakaneth.wolfsden.extensions.logGameEvent
+import org.rakaneth.wolfsden.extensions.responseWhenCommandIs
+import org.rakaneth.wolfsden.extensions.whenIsPlayer
 import org.rakaneth.wolfsden.world.GameContext
 
-object StairUser: BaseFacet<GameContext>() {
+object StairUser : BaseFacet<GameContext>() {
     override fun executeCommand(command: Command<out EntityType, GameContext>): Response {
         return command.responseWhenCommandIs<UseStairs> { (context, entity, position) ->
             val world = context.world

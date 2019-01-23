@@ -1,31 +1,28 @@
 package org.rakaneth.wolfsden.view
 
 import org.hexworks.cobalt.events.api.subscribe
-import org.hexworks.zircon.api.ComponentStyleSets
 import org.hexworks.zircon.api.Components
 import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.Sizes
-import org.hexworks.zircon.api.builder.graphics.StyleSetBuilder
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.game.ProjectionMode
-import org.hexworks.zircon.api.input.InputType
 import org.hexworks.zircon.api.kotlin.onKeyStroke
 import org.hexworks.zircon.api.mvc.base.BaseView
 import org.hexworks.zircon.internal.Zircon
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
-import org.rakaneth.wolfsden.builders.GameBuilder
+import org.rakaneth.wolfsden.builders.EntityBuilder
 import org.rakaneth.wolfsden.events.GameLogEvent
 import org.rakaneth.wolfsden.extensions.desc
 import org.rakaneth.wolfsden.extensions.dispName
-import org.rakaneth.wolfsden.extensions.logGameEvent
 import org.rakaneth.wolfsden.view.fragment.StatBlock
 import org.rakaneth.wolfsden.world.Game
 
-class PlayView(private val game: Game): BaseView() {
+class PlayView(private val game: Game) : BaseView() {
     override val theme = GameConfig.THEME
     override fun onDock() {
+        EntityBuilder.testTemplates()
         var counter = 0
         val statPanel = Components.panel()
             .withSize(GameConfig.STAT_W, GameConfig.STAT_H)
@@ -34,16 +31,16 @@ class PlayView(private val game: Game): BaseView() {
             .withAlignmentWithin(screen, ComponentAlignment.TOP_RIGHT)
             .build().apply {
                 val nameLbl = Components.label()
-                    .withSize(this.width-2, 1)
+                    .withSize(this.width - 2, 1)
                     .withAlignmentWithin(this, ComponentAlignment.TOP_LEFT)
                     .build().apply {
                         textProperty.bind(game.player.dispName)
                         counter += height
                     }
                 val descLbl = Components.label()
-                    .withSize(this.width-2, 1)
+                    .withSize(this.width - 2, 1)
                     .withAlignmentWithin(this, ComponentAlignment.TOP_LEFT)
-                    .build().apply{
+                    .build().apply {
                         textProperty.bind(game.player.desc)
                         moveDownBy(counter)
                         counter += height

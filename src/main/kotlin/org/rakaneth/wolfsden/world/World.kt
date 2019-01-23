@@ -15,13 +15,14 @@ import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
 import org.rakaneth.wolfsden.blocks.GameBlockFactory
 import org.rakaneth.wolfsden.extensions.*
-import squidpony.squidmath.Coord
 import squidpony.squidmath.GreasedRegion
 
-class World(startingBlocks: Map<Position3D, GameBlock>,
-            visibleSize: Size3D,
-            actualSize: Size3D,
-            private val rawMap: Array<Array<CharArray>>): GameArea<Tile, GameBlock> by GameAreaBuilder.newBuilder<Tile, GameBlock>()
+class World(
+    startingBlocks: Map<Position3D, GameBlock>,
+    visibleSize: Size3D,
+    actualSize: Size3D,
+    private val rawMap: Array<Array<CharArray>>
+) : GameArea<Tile, GameBlock> by GameAreaBuilder.newBuilder<Tile, GameBlock>()
     .withVisibleSize(visibleSize)
     .withActualSize(actualSize)
     .withDefaultBlock(DEFAULT_BLOCK)
@@ -74,18 +75,19 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
     fun removeEntity(entity: AnyGameEntity) {
         engine.removeEntity(entity)
         entity.position = Position3D.unknown()
-        entityPosLookup.remove(entity.id)?.let {psn ->
-            fetchBlockAt(psn).map { it.removeEntity(entity)}
+        entityPosLookup.remove(entity.id)?.let { psn ->
+            fetchBlockAt(psn).map { it.removeEntity(entity) }
         }
     }
 
     fun update(screen: Screen, input: Input, game: Game) {
         engine.update(
             GameContext(
-            world = this,
-            screen = screen,
-            input = input,
-            player = game.player)
+                world = this,
+                screen = screen,
+                input = input,
+                player = game.player
+            )
         )
     }
 
@@ -103,10 +105,10 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
     }
 
     fun centerOn(entity: AnyGameEntity) {
-        val cam = { pt: Int, s: Int, m: Int -> clamp(pt - s/2, 0, Math.max(0, m-s))}
+        val cam = { pt: Int, s: Int, m: Int -> clamp(pt - s / 2, 0, Math.max(0, m - s)) }
         val (x, y) =
                 cam(entity.position.x, GameConfig.MAP_W, actualSize().xLength) to
-                cam(entity.position.y, GameConfig.MAP_H, actualSize().yLength)
+                        cam(entity.position.y, GameConfig.MAP_H, actualSize().yLength)
         scrollForwardBy(y)
         scrollRightBy(x)
     }
@@ -114,9 +116,6 @@ class World(startingBlocks: Map<Position3D, GameBlock>,
     fun withBlockAt(pos: Position3D, fn: (GameBlock) -> Unit) {
         fetchBlockAt(pos).map(fn)
     }
-
-
-
 
 
     companion object {

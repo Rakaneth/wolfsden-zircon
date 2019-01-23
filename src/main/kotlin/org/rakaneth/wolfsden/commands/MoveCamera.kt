@@ -6,8 +6,10 @@ import org.rakaneth.wolfsden.extensions.GameCommand
 import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.world.GameContext
 
-data class MoveCamera(override val context: GameContext,
-                      override val source: GameEntity<EntityType>,
-                      val oldPos: Position3D,
-                      val newPos: Position3D,
-                      val cameraMoveDirection: CameraMoveDirection): GameCommand<EntityType>
+data class MoveCamera(
+    override val context: GameContext,
+    override val source: GameEntity<EntityType>,
+    val oldPos: Position3D,
+    val newPos: Position3D,
+    val cameraMoveDirection: CameraMoveDirection
+) : GameCommand<EntityType>

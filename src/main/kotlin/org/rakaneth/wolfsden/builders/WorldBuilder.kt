@@ -9,7 +9,7 @@ import org.rakaneth.wolfsden.world.World
 import squidpony.squidgrid.mapping.SerpentDeepMapGenerator
 
 
-class WorldBuilder (private val worldSize: Size3D){
+class WorldBuilder(private val worldSize: Size3D) {
     private val width = worldSize.xLength
     private val height = worldSize.yLength
     private val depth = worldSize.zLength
@@ -24,11 +24,11 @@ class WorldBuilder (private val worldSize: Size3D){
     }
 
     fun createCaveComplex(visibleSize: Size3D): World {
-        val raw = createRaw(caveCarvers=1, roundCarvers=2, boxCarvers=3)
+        val raw = createRaw(caveCarvers = 1, roundCarvers = 2, boxCarvers = 3)
         for ((z, m) in raw.withIndex()) {
             for ((x, c) in m.withIndex()) {
                 for ((y, r) in c.withIndex()) {
-                    blocks[Position3D.create(x, y, z)] = when(r) {
+                    blocks[Position3D.create(x, y, z)] = when (r) {
                         '#' -> GameBlockFactory.stoneWall()
                         '.' -> GameBlockFactory.stoneFloor()
                         '>' -> GameBlockFactory.stairsDown()

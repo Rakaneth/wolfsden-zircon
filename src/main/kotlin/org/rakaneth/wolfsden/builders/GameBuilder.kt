@@ -7,7 +7,7 @@ import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.world.Game
 
 class GameBuilder(val worldSize: Size3D) {
-    private val worldBuilder =  WorldBuilder(worldSize)
+    private val worldBuilder = WorldBuilder(worldSize)
     private val visibleSize = GameConfig.VIEWPORT
     val world = worldBuilder.createCaveComplex(visibleSize)
 

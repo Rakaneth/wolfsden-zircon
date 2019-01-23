@@ -1,17 +1,10 @@
 ---
-basePlayer:
-  capacity: 8
-  glyph: 0x40
-baseNPC:
-  capacity: 8
-  rarity: 5
-  glyph: 0x40
 baseCreature: &baseCreature
   name: No name
   type: No type
   desc: No desc
   unarmed: hands
-  baseStats: &stats
+  baseStats: &stats !!CreatureTemplateStats
     str: 10
     stam: 10
     spd: 10

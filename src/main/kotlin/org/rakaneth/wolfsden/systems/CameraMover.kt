@@ -10,55 +10,56 @@ import org.rakaneth.wolfsden.extensions.position
 import org.rakaneth.wolfsden.extensions.responseWhenCommandIs
 import org.rakaneth.wolfsden.world.GameContext
 
-object CameraMover: BaseFacet<GameContext>() {
-    override fun executeCommand(command: GameCommand<out EntityType>) = command.responseWhenCommandIs<MoveCamera> { cmd ->
-        val (world, _, _, player) = cmd.context
-        val screenPos = player.position - world.visibleOffset()
-        val halfHeight = world.visibleSize().yLength / 2
-        val halfWidth = world.visibleSize().xLength / 2
-        val checkN = {
-            if (screenPos.y < halfHeight) {
-                world.scrollOneBackward()
+object CameraMover : BaseFacet<GameContext>() {
+    override fun executeCommand(command: GameCommand<out EntityType>) =
+        command.responseWhenCommandIs<MoveCamera> { cmd ->
+            val (world, _, _, player) = cmd.context
+            val screenPos = player.position - world.visibleOffset()
+            val halfHeight = world.visibleSize().yLength / 2
+            val halfWidth = world.visibleSize().xLength / 2
+            val checkN = {
+                if (screenPos.y < halfHeight) {
+                    world.scrollOneBackward()
+                }
             }
-        }
-        val checkS = {
-            if (screenPos.y > halfHeight) {
-                world.scrollOneForward()
+            val checkS = {
+                if (screenPos.y > halfHeight) {
+                    world.scrollOneForward()
+                }
             }
-        }
-        val checkE = {
-            if (screenPos.x > halfWidth) {
-                world.scrollOneRight()
+            val checkE = {
+                if (screenPos.x > halfWidth) {
+                    world.scrollOneRight()
+                }
             }
-        }
-        val checkW = {
-            if (screenPos.x < halfWidth) {
-                world.scrollOneLeft()
+            val checkW = {
+                if (screenPos.x < halfWidth) {
+                    world.scrollOneLeft()
+                }
             }
-        }
 
-        when (cmd.cameraMoveDirection) {
-            N -> checkN()
-            NE -> {
-                checkN()
-                checkE()
+            when (cmd.cameraMoveDirection) {
+                N -> checkN()
+                NE -> {
+                    checkN()
+                    checkE()
+                }
+                E -> checkE()
+                SE -> {
+                    checkS()
+                    checkE()
+                }
+                S -> checkS()
+                SW -> {
+                    checkS()
+                    checkW()
+                }
+                W -> checkW()
+                NW -> {
+                    checkN()
+                    checkW()
+                }
             }
-            E -> checkE()
-            SE -> {
-                checkS()
-                checkE()
-            }
-            S -> checkS()
-            SW -> {
-                checkS()
-                checkW()
-            }
-            W -> checkW()
-            NW -> {
-                checkN()
-                checkW()
-            }
+            Consumed
         }
-        Consumed
-    }
 }

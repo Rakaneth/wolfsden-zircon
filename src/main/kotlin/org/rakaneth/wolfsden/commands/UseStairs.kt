@@ -6,7 +6,9 @@ import org.rakaneth.wolfsden.extensions.AnyGameEntity
 import org.rakaneth.wolfsden.extensions.GameCommand
 import org.rakaneth.wolfsden.world.GameContext
 
-data class UseStairs(override val context: GameContext,
-                  override val source: AnyGameEntity,
-                  val position: Position3D): GameCommand<EntityType> {
+data class UseStairs(
+    override val context: GameContext,
+    override val source: AnyGameEntity,
+    val position: Position3D
+) : GameCommand<EntityType> {
 }

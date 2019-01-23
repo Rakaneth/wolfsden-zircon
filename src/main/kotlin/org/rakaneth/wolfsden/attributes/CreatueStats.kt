@@ -4,12 +4,14 @@ import org.hexworks.amethyst.api.Attribute
 import org.hexworks.cobalt.databinding.api.createPropertyFrom
 import org.hexworks.cobalt.databinding.api.property.Property
 
-data class CreatureStats(val strProp: Property<Int>,
-                   val stamProp: Property<Int>,
-                   val sklProp: Property<Int>,
-                   val spdProp: Property<Int>,
-                   val sagProp: Property<Int>,
-                   val smtProp: Property<Int>): Attribute {
+data class CreatureStats(
+    val strProp: Property<Int>,
+    val stamProp: Property<Int>,
+    val sklProp: Property<Int>,
+    val spdProp: Property<Int>,
+    val sagProp: Property<Int>,
+    val smtProp: Property<Int>
+) : Attribute {
 
     val str: Int by strProp.asDelegate()
     val stam: Int by stamProp.asDelegate()
@@ -37,12 +39,14 @@ data class CreatureStats(val strProp: Property<Int>,
         get() = smt / 10
 
     companion object {
-        fun create(str: Int=10,
-                   stam: Int=10,
-                   spd: Int=10,
-                   skl: Int=10,
-                   sag: Int=10,
-                   smt: Int=10) = CreatureStats(
+        fun create(
+            str: Int = 10,
+            stam: Int = 10,
+            spd: Int = 10,
+            skl: Int = 10,
+            sag: Int = 10,
+            smt: Int = 10
+        ) = CreatureStats(
             strProp = createPropertyFrom(str),
             stamProp = createPropertyFrom(stam),
             spdProp = createPropertyFrom(spd),

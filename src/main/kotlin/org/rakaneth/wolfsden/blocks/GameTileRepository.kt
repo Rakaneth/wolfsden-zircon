@@ -1,12 +1,11 @@
 package org.rakaneth.wolfsden.blocks
 
 import org.hexworks.zircon.api.Tiles
-import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.graphics.Symbols
 
 object GameTileRepository {
-    val EMPTY: CharacterTile =  Tiles.empty()
+    val EMPTY: CharacterTile = Tiles.empty()
     val STONE_FLOOR: CharacterTile = Tiles.newBuilder()
         .withCharacter(Symbols.INTERPUNCT)
         .withForegroundColor(Swatch.FLOOR_FG)

@@ -10,11 +10,13 @@ import org.rakaneth.wolfsden.attributes.types.Stattable
 import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.extensions.stats
 
-class StatBlock(creature: GameEntity<Stattable>): Fragment {
-    private fun produceLbl(caption: String,
-                           align: ComponentAlignment,
-                           panel: Panel,
-                           prop: ObservableValue<Any>): Label {
+class StatBlock(creature: GameEntity<Stattable>) : Fragment {
+    private fun produceLbl(
+        caption: String,
+        align: ComponentAlignment,
+        panel: Panel,
+        prop: ObservableValue<Any>
+    ): Label {
         return Components.label()
             .withSize(LBL_SIZE)
             .withAlignmentWithin(panel, align)
