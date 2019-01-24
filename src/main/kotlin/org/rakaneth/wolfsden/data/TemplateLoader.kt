@@ -1,12 +1,15 @@
 package org.rakaneth.wolfsden.data
 
-import org.yaml.snakeyaml.Yaml
-import org.yaml.snakeyaml.constructor.Constructor
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 
-inline fun <reified T : BaseTemplate> buildTemplateRepository(fileName: String): Map<String, T> {
-    val ctor = Constructor(T::class.java)
-    val yaml = Yaml(ctor)
-    val stream = T::class.java.classLoader.getResourceAsStream(fileName)
+val mapper = ObjectMapper(YAMLFactory()).registerKotlinModule()
 
-    return yaml.load<Map<String, T>>(stream)
+inline fun <reified T> buildTemplateRepository(fileName: String): Map<String, T> {
+    val stream: String = T::class.java.classLoader.getResource(fileName).readText()
+    val mapType = mapper.typeFactory.constructMapType(HashMap::class.java, String::class.java, T::class.java)
+    return mapper.readValue(stream, mapType)
 }
