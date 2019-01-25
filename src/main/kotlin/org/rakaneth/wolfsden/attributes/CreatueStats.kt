@@ -3,6 +3,7 @@ package org.rakaneth.wolfsden.attributes
 import org.hexworks.amethyst.api.Attribute
 import org.hexworks.cobalt.databinding.api.createPropertyFrom
 import org.hexworks.cobalt.databinding.api.property.Property
+import org.rakaneth.wolfsden.data.CreatureTemplateStats
 
 data class CreatureStats(
     val strProp: Property<Int>,
@@ -54,5 +55,12 @@ data class CreatureStats(
             sagProp = createPropertyFrom(sag),
             smtProp = createPropertyFrom(smt)
         )
+        fun fromStatTemplate(stats: CreatureTemplateStats) = create(
+            stats.str,
+            stats.stam,
+            stats.spd,
+            stats.skl,
+            stats.sag,
+            stats.smt)
     }
 }

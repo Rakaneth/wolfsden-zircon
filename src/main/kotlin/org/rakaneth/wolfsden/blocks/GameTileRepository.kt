@@ -1,13 +1,14 @@
 package org.rakaneth.wolfsden.blocks
 
 import org.hexworks.zircon.api.Tiles
+import org.hexworks.zircon.api.color.TileColor
 import org.hexworks.zircon.api.data.CharacterTile
 import org.hexworks.zircon.api.graphics.Symbols
 
 object GameTileRepository {
     val EMPTY: CharacterTile = Tiles.empty()
     val STONE_FLOOR: CharacterTile = Tiles.newBuilder()
-        .withCharacter(Symbols.INTERPUNCT)
+        .withCharacter(' ')
         .withForegroundColor(Swatch.FLOOR_FG)
         .withBackgroundColor(Swatch.STONE_FLOOR_BG)
         .buildCharacterTile()
@@ -17,7 +18,7 @@ object GameTileRepository {
         .withBackgroundColor(Swatch.STONE_WALL_BG)
         .buildCharacterTile()
     val WOOD_FLOOR: CharacterTile = Tiles.newBuilder()
-        .withCharacter(Symbols.INTERPUNCT)
+        .withCharacter(' ')
         .withForegroundColor(Swatch.FLOOR_FG)
         .withBackgroundColor(Swatch.WOOD_FLOOR_BG)
         .buildCharacterTile()
@@ -41,4 +42,22 @@ object GameTileRepository {
         .withForegroundColor(Swatch.PLAYER_FG)
         .withBackgroundColor(Swatch.PLAYER_BG)
         .buildCharacterTile()
+
+    fun tileFrom(glyph: Char, fg: String? = null, bg: String? = null): CharacterTile {
+        val rFG = if (fg == null)
+            Swatch.PLAYER_FG
+        else
+            Swatch.fromRGBCommaString(fg)
+
+        val rBG = if (bg == null)
+            Swatch.PLAYER_BG
+        else
+            Swatch.fromRGBCommaString(bg)
+
+        return Tiles.newBuilder()
+            .withCharacter(glyph)
+            .withForegroundColor(rFG)
+            .withBackgroundColor(rBG)
+            .buildCharacterTile()
+    }
 }

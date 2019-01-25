@@ -12,13 +12,16 @@ class GameBuilder(val worldSize: Size3D) {
     val world = worldBuilder.createCaveComplex(visibleSize)
 
     fun buildGame(): Game {
-        val player = makePlayer()
+        val player = EntityBuilder.newPlayer("wolfborn", "Braw")
+        val wolf = EntityBuilder.newCreature("wolf")
         val startPos = world.randomFloor(0)
+        val wolfStart = world.randomFloorWithin(startPos, 3)
         world.addEntity(player, startPos)
+        world.addEntity(wolf, wolfStart)
         world.centerOn(player)
         return Game(world, player)
     }
 
-    private fun makePlayer(): GameEntity<Player> = EntityBuilder.newPlayer()
+
 
 }
