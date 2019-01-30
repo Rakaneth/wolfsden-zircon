@@ -1,133 +1,143 @@
 ---
 whiteMark:
   name: Mark of Ilma
-  desc: A holy symbol of the dragon Il'ma'to'ee'rey
-  slot: trinket
-  glyph: 0x3D
+  desc: A holy symbol of the dragon Il"ma"to"ee"rey
+  slot: TRINKET
+  glyph: "\u003D"
   stats:
     dmg: 2
-  tags: &dragonSymbol
+  tags:
     - holy
     - dragon
 blackMark:
   name: Mark of Barma
   desc: A holy symbol of the dragon Yalakhbarma
-  slot: trinket
-  glyph: 0x3D
+  slot: TRINKET
+  glyph: "\u003D"
   stats:
     tou: 5
     res: 5
-  tags: *dragonSymbol
-  color: iron
+  tags:
+    - holy
+    - dragon
+  color: 63,63,63
 redMark:
   name: Mark of Mekira
   desc: A holy symbol of the dragon Xilomekira
-  slot: trinket
-  glyph: 0x3D
+  slot: TRINKET
+  glyph: "\u003D"
   stats:
     atp: 5
     pwr: 5
-  tags: *dragonSymbol
-  color: crimson
+  tags:
+    - holy
+    - dragon
+  color: 191,74,0
 greenMark:
   name: Mark of Sansa
   desc: A holy symbol of the dragon Sansapradava
-  slot: trinket
-  glyph: 0x3D
+  slot: TRINKET
+  glyph: "\u003D"
   stats:
     dfp: 5
     res: 5
-  tags: *dragonSymbol
-  color: green
+  tags:
+    - holy
+    - dragon
+  color: 0,191,0
 blueMark:
   name: Mark of Atara
   desc: A holy symbol of the dragon Ataramakaris
-  slot: trinket
-  glyph: 0x3D
+  slot: TRINKET
+  glyph: "\u003D"
   stats:
     wil: 5
     pwr: 5
-  tags: *dragonSymbol
-  color: cyan
-axe: &baseAxe
+  tags:
+    - holy
+    - dragon
+  color: 0,127,255
+axe:
   name: axe
   desc: A large axe made from <material>.
-  slot: weapon
-  glyph: 0x2F
+  slot: WEAPON
+  glyph: "\u002F"
   material: true
   stats:
     atp: -5
     dmg: 10
-  damageType: slash
-  equipType: axe
+  damageType: SLASH
+  equipType: AXE
   tags:
     - weapon
   rarity: 5
-sword: &baseSword
+sword:
   name: sword
   desc: A shortsword made from <material>.
-  slot: weapon
-  glyph: 0x7C
+  slot: WEAPON
+  glyph: "\u007C"
   material: true
   stats:
     atp: 5
     dmg: 6
-  damageType: slash
-  equipType: sword
+  damageType: SLASH
+  equipType: SWORD
   tags:
     - weapon
   rarity: 5
-staff: &baseStaff
+staff:
   name: staff
   desc: A long staff made from <material>.
-  slot: weapon
-  glyph: 0xF4
+  slot: WEAPON
+  glyph: "\u00F4"
   material: true
   stats:
     pwr: 5
     wil: 5
     dmg: 3
-  damageType: magic
-  equipType: staff
+  damageType: MAGIC
+  equipType: STAFF
   tags:
     - weapon
   rarity: 2
-rapier: &baseRapier
+rapier:
   name: rapier
   desc: A thin rapier made from <material>.
-  slot: weapon
-  glyph: 0x19
+  slot: WEAPON
+  glyph: "\u0019"
   material: true
   stats:
     atp: 10
     dmg: 4
-  damageType: pierce
-  equipType: rapier
+  damageType: PIERCE
+  equipType: RAPIER
   tags:
     - weapon
   rarity: 3
-hands: &naturalWeapon
+hands:
   name: bare hands
   desc: Bare hands.
-  slot: weapon
+  slot: WEAPON
   stats:
     dmg: 1
-  damageType: blunt
-  equipType: natural
+  damageType: BLUNT
+  equipType: NATURAL
   tags:
     - weapon
     - natural
 claws:
-  <<: *naturalWeapon
   name: claws
   desc: Sharp claws.
+  slot: WEAPON
   stats:
     dmg: 2
-  damageType: slash
+  damageType: SLASH
+  equipType: NATURAL
 fangs:
-  <<: *naturalWeapon
   name: fangs
   desc: Long fangs.
+  slot: WEAPON
   stats:
     dmg: 2
-  damageType: pierce
+  damageType: PIERCE
+  equipType: NATURAL

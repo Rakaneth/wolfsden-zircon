@@ -10,6 +10,8 @@ import org.rakaneth.wolfsden.attributes.types.Creature
 import org.rakaneth.wolfsden.attributes.types.Player
 import org.rakaneth.wolfsden.blocks.GameTileRepository
 import org.rakaneth.wolfsden.data.CreatureTemplate
+import org.rakaneth.wolfsden.data.EquipTemplate
+import org.rakaneth.wolfsden.data.MaterialTemplate
 import org.rakaneth.wolfsden.data.buildTemplateRepository
 import org.rakaneth.wolfsden.extensions.newGameEntityOfType
 import org.rakaneth.wolfsden.systems.CameraMover
@@ -21,7 +23,12 @@ import java.lang.IllegalArgumentException
 object EntityBuilder {
     private val rng = GameConfig.RNG
     private const val CREATURE_FILE = "creatures.yml"
+    private const val EQUIP_FILE = "equip.yml"
+    private const val MAT_FILE = "materials.yml"
     private val creatureTemplates = buildTemplateRepository<CreatureTemplate>(CREATURE_FILE)
+    private val equipTemplates = buildTemplateRepository<EquipTemplate>(EQUIP_FILE)
+    private val matTemplates = buildTemplateRepository<MaterialTemplate>(MAT_FILE)
+
     fun newPlayer(raceID: String, name: String) = newGameEntityOfType(Player) {
         val template = creatureTemplates[raceID] ?: throw IllegalArgumentException("$raceID is not a valid race.")
         attributes(
@@ -58,6 +65,12 @@ object EntityBuilder {
 
     fun testTemplates() {
         creatureTemplates.forEach { k, v ->
+            println("$k: $v")
+        }
+        matTemplates.forEach { k, v ->
+            println("$k: $v")
+        }
+        equipTemplates.forEach { k, v ->
             println("$k: $v")
         }
     }
