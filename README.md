@@ -10,5 +10,7 @@ my concept.
 * [x] Screen (Zircon views are everything I want in life)
 * [x] Command interface
 * [x] Main Screen UI
-* [ ] Data files
-* [ ] Entities
+* [x] Data files
+* [x] Entities
+* [ ] Game mechanics
+* [ ] Effects
