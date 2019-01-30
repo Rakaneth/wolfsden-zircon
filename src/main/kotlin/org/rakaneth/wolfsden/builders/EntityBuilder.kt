@@ -1,18 +1,13 @@
 package org.rakaneth.wolfsden.builders
 
 import org.rakaneth.wolfsden.GameConfig
-import org.rakaneth.wolfsden.attributes.CreatureStats
-import org.rakaneth.wolfsden.attributes.EntityID
-import org.rakaneth.wolfsden.attributes.EntityPosition
-import org.rakaneth.wolfsden.attributes.EntityTile
+import org.rakaneth.wolfsden.attributes.*
 import org.rakaneth.wolfsden.attributes.flags.BlockOccupier
 import org.rakaneth.wolfsden.attributes.types.Creature
+import org.rakaneth.wolfsden.attributes.types.Equipment
 import org.rakaneth.wolfsden.attributes.types.Player
 import org.rakaneth.wolfsden.blocks.GameTileRepository
-import org.rakaneth.wolfsden.data.CreatureTemplate
-import org.rakaneth.wolfsden.data.EquipTemplate
-import org.rakaneth.wolfsden.data.MaterialTemplate
-import org.rakaneth.wolfsden.data.buildTemplateRepository
+import org.rakaneth.wolfsden.data.*
 import org.rakaneth.wolfsden.extensions.newGameEntityOfType
 import org.rakaneth.wolfsden.systems.CameraMover
 import org.rakaneth.wolfsden.systems.Movable
@@ -61,6 +56,37 @@ object EntityBuilder {
             Movable,
             StairUser
         )
+    }
+
+    fun newEquip(buildID: String, matID: String? = null) = newGameEntityOfType(Equipment) {
+        val eqTemplate = equipTemplates[buildID]
+            ?: throw IllegalArgumentException("Build id $buildID not present in equipment templates")
+        val baseStats = EquipStats.fromStatTemplate(eqTemplate.stats)
+        attributes(EntityPosition())
+        if (matID == null) {
+            if (eqTemplate.material)
+                throw IllegalArgumentException("Equipment $buildID must have a material type")
+            attributes(baseStats,
+                       EntityTile(GameTileRepository.tileFrom(eqTemplate.glyph, eqTemplate.color)),
+                       EntityID.create(eqTemplate.name, eqTemplate.desc))
+        } else {
+            val mat = matTemplates[matID]
+                ?: throw IllegalArgumentException("Mat id $matID not present in material templates")
+            val statSet = when (eqTemplate.equipType) {
+                EquipType.SWORD -> mat.sword
+                EquipType.AXE -> mat.axe
+                EquipType.ARMOR -> mat.armor
+                EquipType.RAPIER -> mat.rapier
+                EquipType.STAFF -> mat.staff
+                else -> EquipTemplateStats()
+            }
+            baseStats.applyMatTemplate(statSet)
+            val newDesc = eqTemplate.desc.replace("<material>", mat.name)
+            val newName = "${mat.name} ${eqTemplate.name}"
+            attributes(baseStats,
+                       EntityTile(GameTileRepository.tileFrom(eqTemplate.glyph, mat.color)),
+                       EntityID.create(newName, newDesc))
+        }
     }
 
     fun testTemplates() {
