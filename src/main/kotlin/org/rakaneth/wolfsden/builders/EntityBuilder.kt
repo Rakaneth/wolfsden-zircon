@@ -13,7 +13,6 @@ import org.rakaneth.wolfsden.systems.CameraMover
 import org.rakaneth.wolfsden.systems.Movable
 import org.rakaneth.wolfsden.systems.PlayerInputHandler
 import org.rakaneth.wolfsden.systems.StairUser
-import java.lang.IllegalArgumentException
 
 object EntityBuilder {
     private val rng = GameConfig.RNG
@@ -25,7 +24,8 @@ object EntityBuilder {
     private val matTemplates = buildTemplateRepository<MaterialTemplate>(MAT_FILE)
 
     fun newPlayer(raceID: String, name: String) = newGameEntityOfType(Player) {
-        val template = creatureTemplates[raceID] ?: throw IllegalArgumentException("$raceID is not a valid race.")
+        val template = creatureTemplates[raceID]
+            ?: throw IllegalArgumentException("$raceID is not a valid race.")
         attributes(
             BlockOccupier,
             EntityPosition(),
@@ -44,7 +44,8 @@ object EntityBuilder {
     }
 
     fun newCreature(buildID: String, name: String? = null) = newGameEntityOfType(Creature) {
-        val template = creatureTemplates[buildID] ?: throw IllegalArgumentException("Build id $buildID not present in templates")
+        val template = creatureTemplates[buildID]
+            ?: throw IllegalArgumentException("Build id $buildID not present in templates")
         attributes(
             BlockOccupier,
             EntityPosition(),
@@ -61,14 +62,19 @@ object EntityBuilder {
     fun newEquip(buildID: String, matID: String? = null) = newGameEntityOfType(Equipment) {
         val eqTemplate = equipTemplates[buildID]
             ?: throw IllegalArgumentException("Build id $buildID not present in equipment templates")
-        val baseStats = EquipStats.fromStatTemplate(eqTemplate.stats)
-        attributes(EntityPosition())
+        val baseStats = EquipStats.fromEquipTemplate(eqTemplate)
+        attributes(
+            EntityPosition(),
+            EntityEquip()
+        )
         if (matID == null) {
             if (eqTemplate.material)
                 throw IllegalArgumentException("Equipment $buildID must have a material type")
-            attributes(baseStats,
-                       EntityTile(GameTileRepository.tileFrom(eqTemplate.glyph, eqTemplate.color)),
-                       EntityID.create(eqTemplate.name, eqTemplate.desc))
+            attributes(
+                baseStats,
+                EntityTile(GameTileRepository.tileFrom(eqTemplate.glyph, eqTemplate.color)),
+                EntityID.create(eqTemplate.name, eqTemplate.desc)
+            )
         } else {
             val mat = matTemplates[matID]
                 ?: throw IllegalArgumentException("Mat id $matID not present in material templates")
@@ -83,9 +89,11 @@ object EntityBuilder {
             baseStats.applyMatTemplate(statSet)
             val newDesc = eqTemplate.desc.replace("<material>", mat.name)
             val newName = "${mat.name} ${eqTemplate.name}"
-            attributes(baseStats,
-                       EntityTile(GameTileRepository.tileFrom(eqTemplate.glyph, mat.color)),
-                       EntityID.create(newName, newDesc))
+            attributes(
+                baseStats,
+                EntityTile(GameTileRepository.tileFrom(eqTemplate.glyph, mat.color)),
+                EntityID.create(newName, newDesc)
+            )
         }
     }
 

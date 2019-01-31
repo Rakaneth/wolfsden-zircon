@@ -8,4 +8,4 @@ data class MaterialTemplate(
     val armor: EquipTemplateStats = EquipTemplateStats(),
     val hammer: EquipTemplateStats = EquipTemplateStats(),
     val staff: EquipTemplateStats = EquipTemplateStats()
-): BaseTemplate(glyph = '\u0000', type = "material")
+) : BaseTemplate(glyph = '\u0000', type = "material")

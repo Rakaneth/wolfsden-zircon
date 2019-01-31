@@ -2,10 +2,6 @@ package org.rakaneth.wolfsden.builders
 
 import org.hexworks.zircon.api.data.impl.Size3D
 import org.rakaneth.wolfsden.GameConfig
-import org.rakaneth.wolfsden.attributes.EquipStats
-import org.rakaneth.wolfsden.attributes.types.Player
-import org.rakaneth.wolfsden.extensions.GameEntity
-import org.rakaneth.wolfsden.extensions.attribute
 import org.rakaneth.wolfsden.world.Game
 
 class GameBuilder(val worldSize: Size3D) {
@@ -26,7 +22,6 @@ class GameBuilder(val worldSize: Size3D) {
         world.centerOn(player)
         return Game(world, player)
     }
-
 
 
 }

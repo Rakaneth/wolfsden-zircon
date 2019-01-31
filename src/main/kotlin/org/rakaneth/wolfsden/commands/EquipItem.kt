@@ -1,13 +1,13 @@
 package org.rakaneth.wolfsden.commands
 
 import org.hexworks.amethyst.api.entity.EntityType
-import org.hexworks.zircon.api.data.impl.Position3D
-import org.rakaneth.wolfsden.extensions.AnyGameEntity
+import org.rakaneth.wolfsden.attributes.types.Item
 import org.rakaneth.wolfsden.extensions.GameCommand
+import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.world.GameContext
 
-data class UseStairs(
+data class EquipItem(
     override val context: GameContext,
-    override val source: AnyGameEntity,
-    val position: Position3D
+    override val source: GameEntity<EntityType>,
+    val item: GameEntity<Item>
 ) : GameCommand<EntityType>

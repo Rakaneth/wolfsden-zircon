@@ -17,7 +17,9 @@ inline fun <reified T : Attribute> AnyGameEntity.attribute(): T = attribute(T::c
     NoSuchElementException("Entity '$this' has no property with type '${T::class.simpleName}'.")
 }
 
-inline fun <reified T : Attribute> AnyGameEntity.hasAttribute(): Boolean = attribute(T::class).isPresent
+inline fun <reified T : Attribute> AnyGameEntity.hasAttribute(): Boolean =
+    attribute(T::class).isPresent
+
 inline fun <reified T : Attribute> AnyGameEntity.whenHasAttribute(crossinline fn: (T) -> Unit) {
     attribute(T::class).map(fn)
 }

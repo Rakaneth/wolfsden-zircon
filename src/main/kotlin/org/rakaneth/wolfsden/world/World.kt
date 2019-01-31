@@ -107,8 +107,8 @@ class World(
     fun centerOn(entity: AnyGameEntity) {
         val cam = { pt: Int, s: Int, m: Int -> clamp(pt - s / 2, 0, Math.max(0, m - s)) }
         val (x, y) =
-                cam(entity.position.x, GameConfig.MAP_W, actualSize().xLength) to
-                        cam(entity.position.y, GameConfig.MAP_H, actualSize().yLength)
+            cam(entity.position.x, GameConfig.MAP_W, actualSize().xLength) to
+                    cam(entity.position.y, GameConfig.MAP_H, actualSize().yLength)
         scrollForwardBy(y)
         scrollRightBy(x)
     }

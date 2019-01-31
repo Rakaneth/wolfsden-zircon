@@ -55,12 +55,14 @@ data class CreatureStats(
             sagProp = createPropertyFrom(sag),
             smtProp = createPropertyFrom(smt)
         )
+
         fun fromStatTemplate(stats: CreatureTemplateStats) = create(
             stats.str,
             stats.stam,
             stats.spd,
             stats.skl,
             stats.sag,
-            stats.smt)
+            stats.smt
+        )
     }
 }
