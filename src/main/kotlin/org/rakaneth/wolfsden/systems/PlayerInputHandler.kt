@@ -2,31 +2,31 @@ package org.rakaneth.wolfsden.systems
 
 import org.hexworks.amethyst.api.base.BaseBehavior
 import org.hexworks.amethyst.api.entity.EntityType
-import org.hexworks.zircon.api.input.InputType
-import org.hexworks.zircon.api.kotlin.whenKeyStroke
+import org.hexworks.zircon.api.uievent.KeyCode
+import org.hexworks.zircon.api.uievent.KeyboardEvent
+import org.hexworks.zircon.api.uievent.KeyboardEventType
 import org.rakaneth.wolfsden.commands.CameraMoveDirection
 import org.rakaneth.wolfsden.commands.MoveCamera
 import org.rakaneth.wolfsden.commands.MoveTo
 import org.rakaneth.wolfsden.commands.UseStairs
 import org.rakaneth.wolfsden.extensions.GameEntity
 import org.rakaneth.wolfsden.extensions.position
-import org.rakaneth.wolfsden.extensions.whenCharacterIs
 import org.rakaneth.wolfsden.world.GameContext
 
 object PlayerInputHandler : BaseBehavior<GameContext>() {
     override fun update(entity: GameEntity<out EntityType>, context: GameContext): Boolean {
         val (world, screen, input, player) = context
         val curPos = player.position
-        input.whenKeyStroke { ks ->
-            val (newPos, direction) = when (ks.inputType()) {
-                InputType.Numpad8, InputType.ArrowUp -> curPos.withRelativeY(-1) to CameraMoveDirection.N
-                InputType.Numpad9 -> curPos.withRelativeY(-1).withRelativeX(1) to CameraMoveDirection.NE
-                InputType.Numpad6, InputType.ArrowRight -> curPos.withRelativeX(1) to CameraMoveDirection.E
-                InputType.Numpad3 -> curPos.withRelativeX(1).withRelativeY(1) to CameraMoveDirection.SE
-                InputType.Numpad2, InputType.ArrowDown -> curPos.withRelativeY(1) to CameraMoveDirection.S
-                InputType.Numpad1 -> curPos.withRelativeX(-1).withRelativeY(1) to CameraMoveDirection.SW
-                InputType.Numpad4, InputType.ArrowLeft -> curPos.withRelativeX(-1) to CameraMoveDirection.W
-                InputType.Numpad7 -> curPos.withRelativeX(-1).withRelativeY(-1) to CameraMoveDirection.NW
+        if (input is KeyboardEvent) {
+            val (newPos, direction) = when (input.code) {
+                KeyCode.NUMPAD_8, KeyCode.UP -> curPos.withRelativeY(-1) to CameraMoveDirection.N
+                KeyCode.NUMPAD_9 -> curPos.withRelativeY(-1).withRelativeX(1) to CameraMoveDirection.NE
+                KeyCode.NUMPAD_6, KeyCode.RIGHT -> curPos.withRelativeX(1) to CameraMoveDirection.E
+                KeyCode.NUMPAD_3 -> curPos.withRelativeX(1).withRelativeY(1) to CameraMoveDirection.SE
+                KeyCode.NUMPAD_2, KeyCode.DOWN -> curPos.withRelativeY(1) to CameraMoveDirection.S
+                KeyCode.NUMPAD_1 -> curPos.withRelativeX(-1).withRelativeY(1) to CameraMoveDirection.SW
+                KeyCode.NUMPAD_4, KeyCode.LEFT -> curPos.withRelativeX(-1) to CameraMoveDirection.W
+                KeyCode.NUMPAD_7 -> curPos.withRelativeX(-1).withRelativeY(-1) to CameraMoveDirection.NW
                 else -> curPos to null
             }
             direction?.let {
@@ -41,26 +41,30 @@ object PlayerInputHandler : BaseBehavior<GameContext>() {
                     )
                 )
             }
-            input.whenCharacterIs('>') {
-                player.executeCommand(
-                    UseStairs(
-                        context = context,
-                        source = player,
-                        position = newPos
-                    )
-                )
 
-            }
-            input.whenCharacterIs('<') {
-                player.executeCommand(
-                    UseStairs(
-                        context = context,
-                        source = player,
-                        position = curPos
-                    )
-                )
-            }
         }
+
+
+        input.whenCharacterIs('>') {
+            player.executeCommand(
+                UseStairs(
+                    context = context,
+                    source = player,
+                    position = newPos
+                )
+            )
+
+        }
+        input.whenCharacterIs('<') {
+            player.executeCommand(
+                UseStairs(
+                    context = context,
+                    source = player,
+                    position = curPos
+                )
+            )
+        }
+
         return true
     }
 }

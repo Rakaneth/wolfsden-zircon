@@ -9,8 +9,8 @@ import org.hexworks.zircon.api.data.Tile
 import org.hexworks.zircon.api.data.impl.Position3D
 import org.hexworks.zircon.api.data.impl.Size3D
 import org.hexworks.zircon.api.game.GameArea
-import org.hexworks.zircon.api.input.Input
 import org.hexworks.zircon.api.screen.Screen
+import org.hexworks.zircon.api.uievent.KeyboardEvent
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
 import org.rakaneth.wolfsden.blocks.GameBlockFactory
@@ -80,7 +80,7 @@ class World(
         }
     }
 
-    fun update(screen: Screen, input: Input, game: Game) {
+    fun update(screen: Screen, input: KeyboardEvent, game: Game) {
         engine.update(
             GameContext(
                 world = this,

@@ -6,9 +6,11 @@ import org.hexworks.zircon.api.GameComponents
 import org.hexworks.zircon.api.Sizes
 import org.hexworks.zircon.api.component.ComponentAlignment
 import org.hexworks.zircon.api.data.Tile
+import org.hexworks.zircon.api.extensions.onKeyboardEvent
 import org.hexworks.zircon.api.game.ProjectionMode
-import org.hexworks.zircon.api.kotlin.onKeyStroke
 import org.hexworks.zircon.api.mvc.base.BaseView
+import org.hexworks.zircon.api.uievent.KeyboardEventType
+import org.hexworks.zircon.api.uievent.Processed
 import org.hexworks.zircon.internal.Zircon
 import org.rakaneth.wolfsden.GameConfig
 import org.rakaneth.wolfsden.blocks.GameBlock
@@ -95,8 +97,9 @@ class PlayView(private val game: Game) : BaseView() {
             .build()
         screen.addComponent(gameComponent)
 
-        screen.onKeyStroke {
-            game.world.update(screen, it, game)
+        screen.onKeyboardEvent(KeyboardEventType.KEY_PRESSED) { ev, _ ->
+            game.world.update(screen, ev, game)
+            Processed
         }
     }
 }
